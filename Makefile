@@ -4,19 +4,20 @@ SO_FILE = lib$(LIB).so
 EXE_FILE = chess_tester
 
 # Directories
-SRCDIR = $(CURDIR)/src/
-LIBDIR = $(CURDIR)/lib/
-BINDIR = $(CURDIR)/bin/
-INCDIR = $(CURDIR)/include/
-OBJDIR = $(CURDIR)/obj/
+SRCDIR = $(CURDIR)/src
+LIBDIR = $(CURDIR)/lib
+BINDIR = $(CURDIR)/bin
+INCDIR = $(CURDIR)/include
+OBJDIR = $(CURDIR)/obj
 
 # Variables
 CC = gcc
-CFLAGS = -Wall -I./$(INCDIR) -g
+CFLAGS = -Wall -I$(INCDIR) -g
 SO_CFLAGS = -I$(INCDIR) -fPIC -shared
 LDFLAGS = -L$(LIBDIR) -Wl,-rpath,. -l$(LIB)
 
 SOURCES := $(wildcard $(SRCDIR)/*.c)
+SRC_HEADERS := $(patsubst $(SRCDIR)/%.c,$(SRCDIR)/%.h, $(SOURCES))
 OBJECTS := $(patsubst $(SRCDIR)/%.c,$(SRCDIR)/%.o, $(SOURCES))
 
 .PHONY: all clean exe so
@@ -34,7 +35,7 @@ $(BINDIR)/$(EXE_FILE): $(SRCDIR)/main.o so
 $(LIBDIR)/$(SO_FILE): $(OBJECTS)
 	$(CC) $(SO_CFLAGS) $^ -o $@
 
-$(SRCDIR)/%.o: $(SRCDIR)/%.c
+$(SRCDIR)/%.o: $(SRCDIR)/%.c $(SRCDIR)/%.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

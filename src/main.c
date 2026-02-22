@@ -1,20 +1,20 @@
+#include <stdbool.h>
 #include <stdlib.h>
 
-#include "bit_board.h"
-#include "chess_error.h"
+#include "chapi.h"
 
 int
 main(int argc, char* argv[]) {
   int rc = EXIT_SUCCESS;
-  U64 board = 0ULL;
-  // bprint(mask_pawn_attacks(h4, white));
+  uint64_t board = 0ULL;
+  BitBoard_Print(Mask_Pawn_Attacks(H4, WHITE));
   for (int rank = 0; rank <8; rank++) {
     for (int file = 0; file <8; file++) {
       int square = rank * 8 + file;
       if (file != 7)
-        setbit(board, square);
+        BitBoard_Set_Bit(board, square);
     }
   }
-  bprint(board);
+  BitBoard_Print(board);
   return rc;
 }

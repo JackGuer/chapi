@@ -8,8 +8,25 @@
 #ifndef BITBOARD_H
 #define BITBOARD_H
 
-uint64_t bitboard_mask_pawn_attacks(int square, int side);
+#include <stdint.h>
+#include <stdbool.h>
 
-void bitboard_print(uint64_t board);
+typedef struct BitBoard;
+
+// Getter functions
+
+bool BitBoard_Get_Bit(BitBoard board, int square);
+
+// Setter functions
+
+void BitBoard_Set_Bit(BitBoard board, int square);
+
+bool BitBoard_Pop_Bit(BitBoard board, int square);
+
+// Utility functions
+
+BitBoard Mask_Pawn_Attacks(int square, int side);
+
+void BitBoard_Print(BitBoard board);
 
 #endif

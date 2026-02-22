@@ -8,4 +8,7 @@
 #ifndef CHAPI_H
 #define CHAPI_H
 
+#include "common_types.h"
+#include "bitboard.h"
+
 #endif
